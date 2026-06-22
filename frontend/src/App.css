@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+
+  background: #f5f7fb;
+  color: #111827;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  color: #6b7280;
+}
+
+.badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  margin-top: 1rem;
+}
+
+.badge {
+  background: #eef2ff;
+  color: #3730a3;
+
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.toolbar {
+  background: white;
+
+  border-radius: 12px;
+  padding: 1rem;
+
+  margin-bottom: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+select {
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+.product-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(280px, 1fr));
+
+  gap: 1rem;
+}
+
+.product-card {
+  background: white;
+
+  border-radius: 12px;
+  padding: 1rem;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05);
+
+  transition: transform 0.15s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+}
+
+.product-name {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.product-category {
+  color: #6b7280;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  margin: 0.75rem 0;
+}
+
+.product-date {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.load-more {
+  margin-top: 2rem;
+
+  width: 100%;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 1rem;
+
+  font-size: 1rem;
+
+  background: #2563eb;
+  color: white;
+
+  cursor: pointer;
+}
+
+.load-more:hover {
+  opacity: 0.95;
+}
+
+.loading {
+  text-align: center;
+  padding: 1rem;
+
+  color: #6b7280;
+}
+
+.error {
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+
+  background: white;
+  border-radius: 12px;
+}
