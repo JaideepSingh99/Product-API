@@ -1,12 +1,20 @@
 # Product API
 
-A backend API for browsing 200,000 products with fast, stable pagination.
+A product browsing system designed to efficiently handle 200,000+ products with stable cursor-based pagination and category filtering.
 
-The system uses cursor-based (keyset) pagination with PostgreSQL indexes to provide page-depth independent performance.
+The backend uses keyset pagination and PostgreSQL indexes to provide page-depth independent performance while maintaining consistency as data changes.
 
-Built with Node.js, TypeScript, Express, and PostgreSQL (Supabase).
+Built with Node.js, TypeScript, Express, PostgreSQL (Supabase), React, and Vite.
 
-**Live URL:** https://product-api-x9ua.onrender.com
+## Live Demo
+
+### Frontend
+
+https://product-api-ruby-six.vercel.app
+
+### Backend API
+
+https://product-api-x9ua.onrender.com
 
 ---
 
@@ -14,10 +22,11 @@ Built with Node.js, TypeScript, Express, and PostgreSQL (Supabase).
 
 | Layer     | Technology              | Reason                                        |
 | --------- | ----------------------- | --------------------------------------------- |
+| Frontend  | React + Vite            | Lightweight UI for demonstrating pagination   |
 | Runtime   | Node.js + TypeScript    | Type safety, clean architecture               |
 | Framework | Express                 | Minimal, easy to reason about                 |
 | Database  | PostgreSQL via Supabase | Reliable, free, supports advanced index types |
-| Hosting   | Render                  | Free tier, simple deployment                  |
+| Hosting   | Render + Vercel         | Simple deployment and hosting                 |
 
 No ORM was used. Raw SQL gives full control over query structure and index usage, which is critical for keyset pagination correctness and performance.
 
@@ -53,8 +62,6 @@ Pass `nextCursor` as `cursor` in your next request to get the next page.
 
 `nextCursor` is `null` on the last page.
 
----
-
 ### GET /health
 
 Returns:
@@ -66,6 +73,30 @@ Returns:
 ```
 
 Used by Render to verify the service is running.
+
+---
+
+## Frontend
+
+A lightweight React frontend was added to demonstrate the backend functionality.
+
+### Features
+
+* Browse products with cursor-based pagination
+* Category filtering
+* Responsive product grid
+* Loading and empty states
+* Integration with the deployed backend API
+
+### Frontend Stack
+
+| Layer       | Technology |
+| ----------- | ---------- |
+| Framework   | React      |
+| Build Tool  | Vite       |
+| Language    | TypeScript |
+| HTTP Client | Axios      |
+| Hosting     | Vercel     |
 
 ---
 
@@ -126,11 +157,9 @@ These guarantees are a consequence of keyset pagination on an immutable sort key
 Two indexes were created:
 
 ```sql
--- Filtered browsing (with category)
 CREATE INDEX idx_products_browse
 ON products (category, created_at DESC, id DESC);
 
--- Unfiltered browsing (no category)
 CREATE INDEX idx_products_created
 ON products (created_at DESC, id DESC);
 ```
@@ -182,6 +211,62 @@ The following scenarios were verified:
 * No duplicate products across pages
 * Pagination behavior after inserting additional products
 * Health endpoint availability
+
+---
+
+## Deployment
+
+### Backend
+
+* Hosted on Render
+* PostgreSQL database hosted on Supabase
+
+### Frontend
+
+* Hosted on Vercel
+* Communicates with the deployed backend API using CORS-enabled requests
+
+### Environment Variables
+
+#### Backend
+
+```env
+DATABASE_URL=postgresql://...
+PORT=3000
+FRONTEND_URL=https://product-api-ruby-six.vercel.app
+```
+
+#### Frontend
+
+```env
+VITE_API_URL=https://product-api-x9ua.onrender.com
+```
+
+---
+
+## Project Structure
+
+```text
+product-api/
+├── src/
+│   ├── controllers/
+│   ├── routes/
+│   ├── db/
+│   └── server.ts
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── types/
+│   │   └── App.tsx
+│   └── vite.config.ts
+│
+├── seed/
+│   └── seed.sql
+│
+└── README.md
+```
 
 ---
 
@@ -252,3 +337,6 @@ Issues I identified and fixed myself:
 * Cursor encoding bug caused by serializing dates incorrectly
 * Parameter count mismatch in one query branch
 * Connection string issues during Supabase integration
+* CORS configuration issues during frontend deployment
+
+The final implementation, database design, API behavior, and deployment setup were fully understood and verified during development.
