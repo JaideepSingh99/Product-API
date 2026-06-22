@@ -135,9 +135,11 @@ The seed script is committed at `seed/seed.sql`.
    npm install
 ```
 3. Create `.env`:
+```
 DATABASE_URL=your_supabase_connection_string
 
 PORT=3000
+```
 4. Run the schema migration in Supabase SQL Editor (`src/db/migrations/001_create_products.sql`)
 5. Seed the database (`seed/seed.sql`)
 6. Start the server:
