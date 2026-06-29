@@ -16,6 +16,16 @@ app.use(
 );
 app.use('/products', productsRouter);
 
+app.get('/', (_req, res) => {
+    res.json({
+        message: 'API is running',
+        endpoints: {
+            products: '/products',
+            health: '/health',
+        },
+    });
+});
+
 app.get('/health', (_req, res) => {
     res.json({ status: 'ok' });
 });
